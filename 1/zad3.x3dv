@@ -1,0 +1,25 @@
+#X3D V3.3 utf8
+
+Transform {
+   rotation 1 0 0 3.14
+   translation 0 0 0
+   scale 1 1 2
+
+   children [
+   
+         Shape {
+            geometry Cone {
+               height 6
+               bottomRadius 1.25
+
+            }
+         }
+   ]
+   
+}
+
+
+
+
+
+

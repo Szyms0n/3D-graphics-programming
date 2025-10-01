@@ -1,0 +1,27 @@
+#X3D V3.3 utf8
+
+SpotLight {
+   
+   location 10 0 0
+   color 0 0 1
+   direction -1 0 0
+   beamWidth 1
+   on TRUE
+   radius 100
+}
+
+Transform {
+    translation 0 0 0
+    children [
+        Shape {
+            appearance Appearance {
+                material Material {
+
+                }
+            }
+            geometry Sphere {
+                radius 2 
+            }
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+#X3D V3.3 utf8
+Transform {
+
+   
+    children [
+        Shape {
+            appearance Appearance {
+                material Material {
+                    emissiveColor 0 0 1
+                    transparency 0.6
+                }
+            }
+            geometry Sphere {
+                size 4 4 4 
+            }
+        }
+    ]
+}

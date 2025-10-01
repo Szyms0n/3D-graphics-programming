@@ -1,0 +1,12 @@
+#X3D V3.3 utf8
+
+
+Shape {
+
+  geometry Text {
+    string ["Szymon Hetman AGH w Krakowie"]
+    fontStyle FontStyle {
+      spacing: 2
+    }
+  }
+}
