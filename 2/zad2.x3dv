@@ -1,0 +1,242 @@
+#X3D V3.3 utf8
+
+Transform {
+    translation 0 -1 0
+    children [
+        Shape {
+            appearance Appearance {
+                material Material {
+                    diffuseColor 0 1 1
+                    transparency 0
+                }
+            }
+            geometry Box { size 20 1 30 }
+        }
+    ]
+}
+
+Transform {
+    translation -9.5 0.5 0
+    children [
+        DEF Cube Shape {
+            appearance Appearance {
+                material Material {
+                    diffuseColor 1 1 1
+                    transparency 0
+                }
+            }
+            geometry Box { size 1 2 1 }
+        }
+    ]
+}
+
+
+
+Transform {
+    scale 1 1 30
+    translation -9.5, 0.5,0
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 30
+    translation 9.5, 0.5,0
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 15 1 1
+    translation 1.5, 0.5, 14.5
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 15 1 1
+    translation 1.5, 0.5, -14.5
+    children [ USE Cube ]
+}
+
+
+
+DEF Pierwszy Transform {
+    translation -7.5 0.5 -14.5
+    children [
+        Shape {
+            appearance Appearance {
+                texture ImageTexture { url "Brama_typ_a_front.jpg" }
+            }
+            geometry Box { size 3 2 1 }
+        }
+    ]
+}
+
+
+DEF Czas TimeSensor {
+    loop TRUE
+    cycleInterval 10
+    startTime 0
+}
+
+DEF Inter PositionInterpolator {
+    key [0, 0.25, 0.5, 0.75, 1] 
+    keyValue [ -7.5 0.5 -14.5, -7.5 1 -14.5, -7.5 1.5 -14.5, -7.5 2 -14.5, -7.5 2.5 -14.5 ]
+}
+ROUTE Czas.fraction_changed TO Inter.set_fraction
+ROUTE Inter.value_changed TO Pierwszy.set_translation
+
+
+
+
+
+
+
+
+
+Transform {
+    scale 1 1 7
+    translation -5.5, 0.5, -10.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 14 1 1
+    translation -2.5, 0.5, -5.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 6
+    translation -2.5, 0.5, -11.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 7
+    translation -3.5, 0.5, -2.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 7
+    translation 0, 0.5, -1.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 6 1 1
+    translation 0, 0.5, -10.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 3
+    translation 2.5, 0.5, -11.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 3
+    translation 5.5, 0.5, -11.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 3 1 1
+    translation 7.5, 0.5, -10.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 12
+    translation 4, 0.5, -3
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 11 1 1
+    translation -1, 0.5, 6.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 7
+    translation -6, 0.5, 5
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 4 1 1
+    translation -5, 0.5, -1
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 5 1 1
+    translation -3, 0.5, 3.5
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 13 1 1
+    translation 0, 0.5, 9
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale  1 1 3
+    translation 0, 0.5, 11
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 5
+    translation -3, 0.5, 12
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale  1 1 3
+    translation 3, 0.5, 13
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 3
+    translation 6, 0.5, 10
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 3
+    translation 6, 0.5, 7
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  3 1 1
+    translation 5, 0.5, 5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  3 1 1
+    translation 5, 0.5, -1
+    children [ USE Cube ]
+}
+
+
+
+DirectionalLight {
+    ambientIntensity 0
+    color 1 0 0          
+    direction 0 -1 0      
+    intensity 0.5        
+    on TRUE
+}
