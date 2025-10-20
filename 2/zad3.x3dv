@@ -1,7 +1,6 @@
 #X3D V3.3 utf8
-
-
-
+ 
+ 
 DEF Slonce Transform {
     translation 0 0 0
     children [
@@ -9,275 +8,329 @@ DEF Slonce Transform {
             appearance Appearance {
                 texture ImageTexture { url "sun.jpg" }
             }
-            geometry Sphere { radius 9 }
+            geometry Sphere { radius 1 }
         }
     ]
 }
-
-DEF SlonceRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
+ 
+DEF Merkury Transform {
+ 
+    center -5 0 0
+    translation 5 0 0
+ 
+    children [
+        DEF MrLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "merkury.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
     ]
 }
-
-DEF Czas TimeSensor {
+ 
+DEF Wenus Transform {
+ 
+    center -10 0 0
+    translation 10 0 0
+ 
+    children [
+        DEF WLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "wenus.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+DEF Ziemia Transform {
+ 
+    center -15 0 0
+    translation 15 0 0
+ 
+    children [
+        DEF ZLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "ziemia.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+DEF Mars Transform {
+ 
+    center -20 0 0
+    translation 20 0 0
+ 
+    children [
+        DEF MsLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "mars.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+DEF Jowisz Transform {
+ 
+    center -25 0 0
+    translation 25 0 0
+ 
+    children [
+        DEF JLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "jowisz.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+DEF Saturn Transform {
+ 
+    center -30 0 0
+    translation 30 0 0
+ 
+    children [
+        DEF SLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "saturn.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+DEF Uran Transform {
+ 
+    center -35 0 0
+    translation 35 0 0
+ 
+    children [
+        DEF ULocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "uran.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+DEF Neptun Transform {
+ 
+    center -40 0 0
+    translation 40 0 0
+ 
+    children [
+        DEF NLocal Transform {
+            children [
+                Shape {
+                    appearance Appearance{
+                        material Material {
+ 
+                        }
+                        texture ImageTexture {
+                            url "neptun.jpg"
+                        }
+                    }
+                    geometry Sphere {
+                        radius 2
+                    }
+                }
+            ]
+        }
+    ]
+}
+ 
+ 
+ 
+ 
+DEF CzasMerkury TimeSensor {
+    loop TRUE
+    cycleInterval 2
+}
+ 
+DEF CzasWenus TimeSensor {
+    loop TRUE
+    cycleInterval 3
+}
+ 
+ 
+DEF CzasZiemia TimeSensor {
+    loop TRUE
+    cycleInterval 4
+}
+ 
+DEF CzasMars TimeSensor {
     loop TRUE
     cycleInterval 5
 }
-
-ROUTE Czas.fraction_changed TO SlonceRuch.set_fraction
-ROUTE SlonceRuch.value_changed TO Slonce.set_rotation
-
-
-
-
-DEF Merkury Transform {
-    translation 20 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "merkury.jpg" }
-            }
-            geometry Sphere { radius 2 }
-        }
-    ]
+ 
+DEF CzasJowisz TimeSensor {
+    loop TRUE
+    cycleInterval 6
 }
-
+ 
+DEF CzasSaturn TimeSensor {
+    loop TRUE
+    cycleInterval 7
+}
+ 
+DEF CzasUran TimeSensor {
+    loop TRUE
+    cycleInterval 8
+}
+ 
+DEF CzasNeptun TimeSensor {
+    loop TRUE
+    cycleInterval 9
+}
+ 
 DEF MerkuryRuch OrientationInterpolator {
     key [0, 0.25, 0.5, 0.75, 1]
-    keyValue [
-        0 1 0 0,          
-        0 1 0 1.5708,     
-        0 1 0 3.1416,     
-        0 1 0 4.7124,     
-        0 1 0 6.2832      
-    ]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-DEF MerkuryCzas TimeSensor {
-    loop TRUE
-    cycleInterval 10
-}
-
-ROUTE Czas.fraction_changed TO MerkuryRuch.set_fraction
-ROUTE MerkuryRuch.value_changed TO Merkury.set_rotation
-
-
-
-DEF Wenus Transform {
-    translation 30 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "wenus.jpg" }
-            }
-            geometry Sphere { radius 3 }
-        }
-    ]
-}
-
+ 
 DEF WenusRuch OrientationInterpolator {
     key [0, 0.25, 0.5, 0.75, 1]
-    keyValue [
-        0 1 0 0,          
-        0 1 0 1.5708,     
-        0 1 0 3.1416,     
-        0 1 0 4.7124,     
-        0 1 0 6.2832      
-    ]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-ROUTE Czas.fraction_changed TO WenusRuch.set_fraction
-ROUTE WenusRuch.value_changed TO Wenus.set_rotation
-
-
-
-
-DEF Ziemia Transform {
-    translation 40 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "ziemia.jpg" }
-            }
-            geometry Sphere { radius 3.2 }
-        }
-    ]
-}
-
+ 
+ 
 DEF ZiemiaRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
-    ]
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-ROUTE Czas.fraction_changed TO ZiemiaRuch.set_fraction
-ROUTE ZiemiaRuch.value_changed TO Ziemia.set_rotation
-
-
-
-
-DEF Mars Transform {
-    translation 50 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "mars.jpg" }
-            }
-            geometry Sphere { radius 1.7 }
-        }
-    ]
-}
-
+ 
+ 
 DEF MarsRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
-    ]
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-ROUTE Czas.fraction_changed TO MarsRuch.set_fraction
-ROUTE MarsRuch.value_changed TO Mars.set_rotation
-
-
-
-
-DEF Jowisz Transform {
-    translation 70 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "jowisz.jpg" }
-            }
-            geometry Sphere { radius 7 }
-        }
-    ]
-}
-
+ 
 DEF JowiszRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
-    ]
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-ROUTE Czas.fraction_changed TO JowiszRuch.set_fraction
-ROUTE JowiszRuch.value_changed TO Jowisz.set_rotation
-
-
-
-
-DEF Saturn Transform {
-    translation 90 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "saturn.jpg" }
-            }
-            geometry Sphere { radius 6 }
-        }
-    ]
-}
-
+ 
 DEF SaturnRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
-    ]
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-ROUTE Czas.fraction_changed TO SaturnRuch.set_fraction
-ROUTE SaturnRuch.value_changed TO Saturn.set_rotation
-
-
-
-
-DEF Uran Transform {
-    translation 110 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "uran.jpg" }
-            }
-            geometry Sphere { radius 4 }
-        }
-    ]
-}
-
+ 
 DEF UranRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
-    ]
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-ROUTE Czas.fraction_changed TO UranRuch.set_fraction
-ROUTE UranRuch.value_changed TO Uran.set_rotation
-
-
-
-DEF Neptun Transform {
-    translation 130 0 0
-    children [
-        Shape {
-            appearance Appearance {
-                texture ImageTexture { url "neptun.jpg" }
-            }
-            geometry Sphere { radius 3.8 }
-        }
-    ]
-}
-
+ 
 DEF NeptunRuch OrientationInterpolator {
-    key [0, 0.2, 0.4, 0.6, 0.8, 1]
-     keyValue [
-        0 1 0 0,           
-        0 1 0 1.256,    
-        0 1 0 2.512,     
-        0 1 0 3.768,
-        0 1 0 5.024,
-        0 1 0 6.28, 
-    ]
+    key [0, 0.25, 0.5, 0.75, 1]
+    keyValue [  0 1 0 0, 0 1 0 1.57,  0 1 0 3.14, 0 1 0 4.71, 0 1 0 6.28]
 }
-
-
-ROUTE Czas.fraction_changed TO NeptunRuch.set_fraction
+ 
+ 
+ 
+ 
+ROUTE CzasMerkury.fraction_changed TO MerkuryRuch.set_fraction
+ROUTE MerkuryRuch.value_changed TO Merkury.set_rotation
+ 
+ROUTE CzasWenus.fraction_changed TO WenusRuch.set_fraction
+ROUTE WenusRuch.value_changed TO Wenus.set_rotation
+ 
+ 
+ROUTE CzasZiemia.fraction_changed TO ZiemiaRuch.set_fraction
+ROUTE ZiemiaRuch.value_changed TO Ziemia.set_rotation
+ 
+ROUTE CzasMars.fraction_changed TO MarsRuch.set_fraction
+ROUTE MarsRuch.value_changed TO Mars.set_rotation
+ 
+ROUTE CzasJowisz.fraction_changed TO JowiszRuch.set_fraction
+ROUTE JowiszRuch.value_changed TO Jowisz.set_rotation
+ 
+ROUTE CzasSaturn.fraction_changed TO SaturnRuch.set_fraction
+ROUTE SaturnRuch.value_changed TO Saturn.set_rotation
+ 
+ROUTE CzasUran.fraction_changed TO UranRuch.set_fraction
+ROUTE UranRuch.value_changed TO Uran.set_rotation
+ 
+ROUTE CzasNeptun.fraction_changed TO NeptunRuch.set_fraction
 ROUTE NeptunRuch.value_changed TO Neptun.set_rotation
