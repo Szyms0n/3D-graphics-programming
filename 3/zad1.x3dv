@@ -1,0 +1,566 @@
+#X3D V3.3 utf8
+Transform {
+  translation -7 1 -10
+  children DEF TriggerArea ProximitySensor {
+    size 3.75 5 4
+  }
+}
+
+DEF BlackGhost Transform {
+  translation -7 1 -8
+  children Shape {
+    appearance Appearance {
+      material DEF BlackGhostMaterial Material {
+        diffuseColor 0 0 0
+        transparency 1
+      }
+    }
+    geometry Box {
+      size 0.9 2 0.9
+    }
+  }
+}
+
+DEF BlackGhostPosTimer TimeSensor {
+  loop FALSE
+  cycleInterval 10
+}
+
+DEF BlackGhostTransparencyTimer TimeSensor {
+  loop FALSE
+  cycleInterval 5
+}
+
+DEF BlackGhostPositionInter PositionInterpolator {
+  key [0 1]
+  keyValue [-7 1 -8 -7 1 -9]
+}
+
+DEF BlackGhostTransparencyInter ScalarInterpolator {
+  key [0 0.5 1]
+  keyValue [1 0 1]
+}
+
+ROUTE BlackGhostPosTimer.fraction_changed TO BlackGhostPositionInter.set_fraction
+ROUTE BlackGhostTransparencyTimer.fraction_changed TO BlackGhostTransparencyInter.set_fraction
+
+ROUTE BlackGhostPositionInter.value_changed TO BlackGhost.set_translation
+ROUTE BlackGhostTransparencyInter.value_changed TO BlackGhostMaterial.set_transparency
+
+ROUTE TriggerArea.enterTime TO BlackGhostPosTimer.set_startTime
+ROUTE TriggerArea.enterTime TO BlackGhostTransparencyTimer.set_startTime
+
+ROUTE TriggerArea.isActive TO BlackGhostPosTimer.set_loop
+ROUTE TriggerArea.isActive TO BlackGhostTransparencyTimer.set_loop
+
+
+
+# === secret ===
+
+Transform {
+  translation 0.75 0.5 0.5
+  rotation 0 1 0 1.57
+  children DEF Tip Shape {
+    appearance Appearance {
+      material DEF TipMaterial Material {
+        diffuseColor 0.5 0.5 0.5
+        transparency 1
+      }
+    }
+    geometry Text {
+      string ["Sekret"]
+    }
+  }
+}
+
+DEF Lamp PointLight {
+  on TRUE
+  location 1 0.5 -3.6
+  radius 5
+  intensity 0
+}
+
+DEF TipButton Transform {
+  translation 3.75 0.5 -9
+  children [
+    DEF TipButtonSensor TouchSensor {
+      enabled TRUE
+    },
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 1
+        }
+      }
+
+      geometry Box {
+        size 0.5 0.5 0.1
+      }
+    }
+  ]
+}
+
+DEF TipTimer TimeSensor {
+  loop FALSE
+  cycleInterval 10
+}
+
+DEF LampInter ScalarInterpolator {
+  key [0 0.1 0.9 1]
+  keyValue [0 1 1 0]
+}
+
+DEF TipInter ScalarInterpolator {
+  key [0 0.1 0.9 1]
+  keyValue [1 0 0 1]
+}
+
+ROUTE TipButtonSensor.touchTime TO TipTimer.set_startTime
+
+ROUTE TipTimer.fraction_changed TO LampInter.set_fraction
+ROUTE TipTimer.fraction_changed TO TipInter.set_fraction
+
+ROUTE LampInter.value_changed TO Lamp.set_intensity
+ROUTE TipInter.value_changed TO TipMaterial.set_transparency
+
+
+
+
+# === photo ===
+
+PROTO Obraz [
+  field SFColor kolorRamki 0.59 0.29 0
+] {
+  Transform {
+    children [
+      Transform {
+        children DEF RamkaPion Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor IS kolorRamki
+            }
+          }
+
+          geometry Box {
+            size 0.1 1 0.1
+          }
+        }
+      }
+      Transform {
+        translation 1 0 0
+        children USE RamkaPion
+      }
+      Transform {
+        translation 0.5 0.5 0
+        children DEF RamkaPoziom Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor IS kolorRamki
+            }
+          }
+
+          geometry Box {
+            size 1.1 0.1 0.1
+          }
+        }
+      }
+      Transform {
+        translation 0.5 -0.5 0
+        children USE RamkaPoziom
+      }
+      Transform {
+        translation 0.5 0 0
+        children DEF RamkaPoziom Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url ["velo.jpg"]
+            }
+          }
+
+          geometry Box {
+            size 1 1 0
+          }
+        }
+      }
+    ]
+  }
+}
+
+Transform {
+  translation -6 1 -1.55
+  children Obraz {}
+}
+
+
+
+# === torch ===
+
+Transform {
+  translation -4.5 0 1.75
+  children [
+    Shape {
+      appearance Appearance {
+        material DEF Torch Material {
+          diffuseColor 1 0 0
+        }
+      }
+
+      geometry Box {
+        size 0.5 2 0.5
+      }
+    }
+  ]
+}
+
+DEF TorchTimer TimeSensor {
+  loop TRUE
+  cycleInterval 5
+}
+
+DEF TorchInter ColorInterpolator {
+  keyValue [1 0 0, 1 1 0, 1 0 0]
+  key [0, 0.5, 1]
+}
+
+ROUTE TorchTimer.fraction_changed TO TorchInter.set_fraction
+ROUTE TorchInter.value_changed TO Torch.set_diffuseColor
+
+
+
+# === elevation ===
+Transform {
+  translation -20 0.5 -20
+  scale 0.90 1 1.2
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.4 0.3 0.1
+        }
+      }
+      geometry ElevationGrid {
+        xDimension 9
+        zDimension 9
+        xSpacing 1.0
+        zSpacing 1.0
+        creaseAngle 1.57
+        height [
+          0, 0, 0, 0.5, 1, 0.5, 0, 0, 0,
+          0, 0.2, 0.8, 1.5, 2, 1.5, 0.8, 0.2, 0,
+          0, 0.5, 1.5, 2.5, 3.5, 2.5, 1.5, 0.5, 0,
+          0.2, 1, 2.5, 4, 5, 4, 2.5, 1, 0.2,
+          0.5, 2, 3.5, 5, 6, 5, 3.5, 2, 0.5,
+          0.2, 1, 2.5, 4, 5, 4, 2.5, 1, 0.2,
+          0, 0.5, 1.5, 2.5, 3.5, 2.5, 1.5, 0.5, 0,
+          0, 0.2, 0.8, 1.5, 2, 1.5, 0.8, 0.2, 0,
+          0, 0, 0, 0.5, 1, 0.5, 0, 0, 0
+        ]
+      }
+    }
+  ]
+}
+
+
+
+
+
+# === background ===
+
+Background {
+  skyColor [
+    0.0 0.2 0.7,   
+    0.2 0.4 0.9,   
+    0.5 0.7 1.0,   
+    1.0 1.0 1.0    
+  ]
+  skyAngle [0.0, 0.3, 1.0, 1.57]
+
+  groundColor [
+    1 1 1,
+    1 1 1,
+    1 1 1
+  ]
+  groundAngle [0.0, 0.5, 1.57]
+}
+
+
+
+# === Fog ===
+Fog {
+  color 1 1 1
+  visibilityRange 75
+  fogType "EXPONENTIAL"
+}
+
+
+Transform {
+    translation 0 -1 0
+    children [
+        Shape {
+            appearance Appearance {
+                material Material {
+                    diffuseColor 0 1 1
+                    transparency 0
+                }
+            }
+            geometry Box { size 20 1 30 }
+        }
+    ]
+}
+
+Transform {
+    translation -9.5 0.5 0
+    children [
+        DEF Cube Shape {
+            appearance Appearance {
+                material Material {
+                    diffuseColor 1 1 1
+                    transparency 0
+                }
+            }
+            geometry Box { size 1 2 1 }
+        }
+    ]
+}
+
+
+
+Transform {
+    scale 1 1 30
+    translation -9.5, 0.5,0
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 30
+    translation 9.5, 0.5,0
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 15 1 1
+    translation 1.5, 0.5, 14.5
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 15 1 1
+    translation 1.5, 0.5, -14.5
+    children [ USE Cube ]
+}
+
+
+
+DEF Pierwszy Transform {
+    translation -7.5 0.5 -14.5
+    children [
+        Shape {
+            appearance Appearance {
+                texture ImageTexture { url "Brama_typ_a_front.jpg" }
+            }
+            geometry Box { size 3 2 1 }
+        }
+    ]
+}
+
+# === PRZYCISK ===
+DEF Przycisk Transform {
+    translation -7.5 -1 -14.5
+    children [
+        Shape {
+            appearance Appearance {
+                material Material { diffuseColor 0 1 0 } 
+            }
+            geometry Box { size 1 0.3 1 }
+        }
+        DEF Czujnik TouchSensor {
+            description "Kliknij, aby otworzyć drzwi"
+        }
+    ]
+}
+
+
+DEF Czas TimeSensor {
+    cycleInterval 2
+    loop FALSE
+}
+
+
+DEF Ruch PositionInterpolator {
+    key [0, 1]
+    keyValue [
+        -7.5 0.5 -14.5,   
+        -7.5 3.0 -14.5    
+    ]
+}
+
+
+
+ROUTE Czujnik.touchTime TO Czas.startTime
+
+
+ROUTE Czas.fraction_changed TO Ruch.set_fraction
+
+
+ROUTE Ruch.value_changed TO Pierwszy.set_translation
+
+
+
+
+
+
+
+
+
+Transform {
+    scale 1 1 7
+    translation -5.5, 0.5, -10.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 14 1 1
+    translation -2.5, 0.5, -5.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 6
+    translation -2.5, 0.5, -11.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 7
+    translation -3.5, 0.5, -2.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 7
+    translation 0, 0.5, -1.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 6 1 1
+    translation 0, 0.5, -10.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 3
+    translation 2.5, 0.5, -11.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 3
+    translation 5.5, 0.5, -11.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 3 1 1
+    translation 7.5, 0.5, -10.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale 1 1 12
+    translation 4, 0.5, -3
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 11 1 1
+    translation -1, 0.5, 6.5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 7
+    translation -6, 0.5, 5
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 4 1 1
+    translation -5, 0.5, -1
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 5 1 1
+    translation -3, 0.5, 3.5
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale 13 1 1
+    translation 0, 0.5, 9
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale  1 1 3
+    translation 0, 0.5, 11
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 5
+    translation -3, 0.5, 12
+    children [ USE Cube ]
+}
+
+
+Transform {
+    scale  1 1 3
+    translation 3, 0.5, 13
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 3
+    translation 6, 0.5, 10
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  1 1 3
+    translation 6, 0.5, 7
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  3 1 1
+    translation 5, 0.5, 5
+    children [ USE Cube ]
+}
+
+Transform {
+    scale  3 1 1
+    translation 5, 0.5, -1
+    children [ USE Cube ]
+}
+
+
+
+DirectionalLight {
+    ambientIntensity 0
+    color 1 0 0          
+    direction 0 -1 0      
+    intensity 0.5        
+    on TRUE
+}
+
+
+
+
